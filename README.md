@@ -1,4 +1,4 @@
-<p align="center"><a href="https://chirper-main-loiblz.laravel.cloud/" target="_blank"><img src="/public/chirper-laravel-github-logo.png" width="400" alt="Chirper Logo"></a></p>
+<p align="center"><a href="https://chirper-main-loiblz.laravel.cloud/" target="_blank"><img src="/public/chirper-laravel-github-logo.webp" width="400" alt="Chirper Logo"></a></p>
 
 <p align="center">
 <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
