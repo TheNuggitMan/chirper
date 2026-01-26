@@ -15,9 +15,6 @@ Route::middleware('auth')->group(function() {
 	Route::delete('/chirps/{chirp}', [ChirpController::class, 'destroy']);
 });
 
-
-
-
 // REGISTER ROUTES
 Route::view('/register', 'auth.register')
 	->middleware('guest')
