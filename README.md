@@ -6,11 +6,17 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Chriper
+## About Chirper
 
 A social platform where users can register, sign in and add a 'chirp' to the site. Once logged in, the user can edit or delete their own comment. This follows the Laravel tutorial. 
 
-### Chrip live using laravel.cloud
+### Tech Stack
+
+- PHP/Laravel
+- SQLite
+- Blade Templating
+
+### Chirp live using laravel.cloud
 
 - **[See Chirper Live](https://chirper-main-loiblz.laravel.cloud/)**
 
@@ -18,7 +24,7 @@ A social platform where users can register, sign in and add a 'chirp' to the sit
 
 - [ ] Add user profile page
 - [ ] Add user settings, upload user avatar, amend username etc.
-- [ ] Add 'heart' option to favourite user chrips
+- [ ] Add 'heart' option to favourite user chirps
 - [ ] Ability to see all your own chirps in a user profile page
 
 ## License
