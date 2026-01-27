@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Models\Chirp;
+use App\Models\User;
 
 class ChirpController extends Controller
 {
@@ -52,9 +53,11 @@ class ChirpController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Chirp $user)
     {
-        //
+        $user = User::with('user');
+
+        return view('auth.user', ['userProfile' => $user]);
     }
 
     /**

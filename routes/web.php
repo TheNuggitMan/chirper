@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ChirpController::class, 'index']);
 
 Route::middleware('auth')->group(function() {
-	Route::post('/chirps', [ChirpController::class, 'store']);
 	Route::get('/chirps/{chirp}/edit', [ChirpController::class, 'edit']);
 	Route::put('/chirps/{chirp}', [ChirpController::class, 'update']);
+	Route::post('/chirps', [ChirpController::class, 'store']);
 	Route::delete('/chirps/{chirp}', [ChirpController::class, 'destroy']);
 });
 
-// REGISTER ROUTES
+//REGISTER ROUTES
 Route::view('/register', 'auth.register')
 	->middleware('guest')
 	->name('register');
@@ -30,8 +30,13 @@ Route::post('/logout', Logout::class)
 
 //LOGIN
 Route::view('/login', 'auth.login')
-->middleware('guest')
-->name('login');
+	->middleware('guest')
+	->name('login');
 
 Route::post('login', Login::class)
 	->middleware('guest');
+
+//USER PROFILE
+Route::view('/user', [ChirpController::class, 'show'])
+	->middleware('auth')
+	->name('user');

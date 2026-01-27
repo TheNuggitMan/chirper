@@ -19,7 +19,7 @@
         </div>
         <div class="navbar-end gap-2">
             @auth
-                <span class="text-sm">{{ auth()->user()->name }}</span>
+                <a href=" {{ route('user') }} " title=""><span class="text-sm">{{ auth()->user()->name }}</span></a>
                 <form action=" {{ route('logout') }} " method="POST" class="inline">
                     @csrf
                     <button type="submit" class="btn btn-ghost btn-sm">Logout</button>
