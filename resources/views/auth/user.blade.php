@@ -12,6 +12,7 @@
                 <p class="text-sm text-base-content/60">Chirps: {{ $chirps->count() }}</p>
             </div>
         </div>
+        <x-user-profile :userProfile="$user" />
 
         <div class="space-y-4 mt-8">
             @forelse ($chirps as $chirp)

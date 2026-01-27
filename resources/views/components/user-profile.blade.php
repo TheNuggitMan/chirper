@@ -1,11 +1,11 @@
 @props(['user'])
 
 <div class="flex space-x-3">
-  @if($chirp->user)
+  @if($user)
       <div class="avatar">
           <div class="size-10 rounded-full">
-              <img src="https://avatars.laravel.cloud/{{ urlencode($chirp->user->email) }}"
-                   alt="{{ $chirp->user->name }}'s avatar"
+              <img src="https://avatars.laravel.cloud/{{ urlencode($user->email) }}"
+                   alt="{{ $user->name }}'s avatar"
                    class="rounded-full" />
           </div>
       </div>
@@ -19,10 +19,10 @@
       </div>
   @endif
 
-  <div class="min-w-0 flex-1">
+{{--   <div class="min-w-0 flex-1">
       <div class="flex justify-between w-full">
           <div class="flex items-center gap-1">
-              <span class="text-sm font-semibold">{{ $chirp->user ? $chirp->user->name : 'Anonymous' }}</span>
+              <span class="text-sm font-semibold">{{ $user ? $user->name : 'Anonymous' }}</span>
               <span class="text-base-content/60">·</span>
               <span class="text-sm text-base-content/60">{{ $chirp->created_at->diffForHumans() }}</span>
               @if ($chirp->updated_at->gt($chirp->created_at->addSeconds(5)))
@@ -48,5 +48,5 @@
           @endcan
       </div>
       <p class="mt-1">{{ $chirp->message }}</p>
-  </div>
+  </div> --}}
 </div>
