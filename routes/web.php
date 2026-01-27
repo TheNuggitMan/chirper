@@ -37,6 +37,6 @@ Route::post('login', Login::class)
 	->middleware('guest');
 
 //USER PROFILE
-Route::view('/user', [ChirpController::class, 'show'])
+Route::get('/user', [ChirpController::class, 'show'])
 	->middleware('auth')
 	->name('user');

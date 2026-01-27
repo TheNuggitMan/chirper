@@ -53,11 +53,16 @@ class ChirpController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Chirp $user)
+    public function show()
     {
-        $user = User::with('user');
+        $user = auth()->user()->load(['chirps' => function ($q) {
+            $q->latest();
+        }]);
 
-        return view('auth.user', ['userProfile' => $user]);
+        return view('auth.user', [
+            'userProfile' => $user,
+            'chirps' => $user->chirps,
+        ]);
     }
 
     /**
