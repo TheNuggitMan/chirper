@@ -3,19 +3,12 @@
         User Profile
     </x-slot:title>
 
-    <div class="max-w-2xl mx-auto">
-        <h1 class="text-3xl font-bold mt-8">{{ $userProfile->name }}'s Profile</h1>
-
-        <div class="card bg-base-100 shadow mt-4">
-            <div class="card-body">
-                <p class="text-sm text-base-content/60">Email: {{ $userProfile->email }}</p>
-                <p class="text-sm text-base-content/60">Chirps: {{ $chirps->count() }}</p>
-            </div>
-        </div>
-        <x-user-profile :userProfile="$user" />
-
-        <div class="space-y-4 mt-8">
+    <div>        
+        <x-user-profile :user="$userProfile" :chirps="$chirps" />
+    </div>
+        <div class="max-w-2xl mx-auto mt-8">
             @forelse ($chirps as $chirp)
+                <h1>Your Chirps:</h1>
                 <x-chirp :chirp="$chirp" />
             @empty
                 <div class="hero py-12">
@@ -31,5 +24,4 @@
                 </div>
             @endforelse
         </div>
-    </div>
 </x-layout>

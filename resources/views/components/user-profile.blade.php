@@ -1,15 +1,26 @@
-@props(['user'])
+@props(['user','chirps'])
 
-<div class="flex space-x-3">
+<div>
   @if($user)
-      <div class="avatar">
-          <div class="size-10 rounded-full">
-              <img src="https://avatars.laravel.cloud/{{ urlencode($user->email) }}"
-                   alt="{{ $user->name }}'s avatar"
-                   class="rounded-full" />
+    <div class="max-w-lg mx-auto">
+      <div class="flex gap-4 items-end">        
+        <div class="avatar-icon w-10 flex-none">
+            <div class="size-10 rounded-full">
+                <img src="https://avatars.laravel.cloud/{{ urlencode($user->email) }}"
+                     alt="{{ $user->name }}'s avatar"
+                     class="rounded-full" />
+            </div>
+        </div>
+        <h1 class="flex-1 text-3xl font-bold mt-8">{{ $user->name }}'s Profile</h1>
+      </div>
+
+      <div class="card bg-base-100 shadow mt-4">
+          <div class="card-body">
+              <p class="text-sm text-base-content/60">Email: {{ $user->email }}</p>
+              <p class="text-sm text-base-content/60">Chirps: {{ $chirps->count() }}</p>
           </div>
       </div>
-  @else
+    @else
       <div class="avatar placeholder">
           <div class="size-10 rounded-full">
               <img src="https://avatars.laravel.cloud/da94be04-2755-4bdc-a793-7c29bae2193e?vibe=stealth"
@@ -17,36 +28,6 @@
               class="rounded-full" />
           </div>
       </div>
+  </div>
   @endif
-
-{{--   <div class="min-w-0 flex-1">
-      <div class="flex justify-between w-full">
-          <div class="flex items-center gap-1">
-              <span class="text-sm font-semibold">{{ $user ? $user->name : 'Anonymous' }}</span>
-              <span class="text-base-content/60">·</span>
-              <span class="text-sm text-base-content/60">{{ $chirp->created_at->diffForHumans() }}</span>
-              @if ($chirp->updated_at->gt($chirp->created_at->addSeconds(5)))
-                  <span class="text-base-content/60">.</span>
-                  <span class="text-sm text-base-content/60 italic">edited</span>
-              @endif
-          </div>
-
-          @can('update', $chirp)
-              <div class="flex gap-1">
-                  <a href="/chirps/{{ $chirp->id }}/edit" class="btn btn-ghost btn-xs">
-                      Edit
-                  </a>
-                  <form action="/chirps/{{ $chirp->id }}" method="POST">
-                      @csrf
-                      @method('DELETE')
-                      <button type="submit" onclick="return confirm('Are you sure you want to delete this chirp?')"
-                          class="btn btn-ghost btn-xs text-error">
-                          Delete
-                      </button>
-                  </form>
-              </div>
-          @endcan
-      </div>
-      <p class="mt-1">{{ $chirp->message }}</p>
-  </div> --}}
 </div>
