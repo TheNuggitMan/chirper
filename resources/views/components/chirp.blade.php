@@ -53,8 +53,6 @@
             </div>
         </div>
 
-        <p class="mt-1">{{ $chirp->message }}</p>
-
         <div class="mt-2 flex justify-end items-center">
             @auth
                 @php
