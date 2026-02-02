@@ -24,7 +24,7 @@ A social platform where users can register, sign in and add a 'chirp' to the sit
 
 - [x] Add user profile page
 - [x] Ability to see all your own chirps in a user profile page
-- [x] Add 'heart' option to favourite user chirps (inc. your own)
+- [x] Add 'heart' option to favourite user chirps (incl. your own)
 - [ ] Add user settings, upload user avatar, amend username etc.
 
 ## License
