@@ -8,14 +8,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('chirp_user', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('chirp_id')->constrained('chirps')->cascadeOnDelete();
-            $table->timestamps();
+        if (!Schema::hasTable('chirp_user')) {
+            Schema::create('chirp_user', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+                $table->foreignId('chirp_id')->constrained('chirps')->cascadeOnDelete();
+                $table->timestamps();
 
-            $table->unique(['user_id', 'chirp_id']);
-        });
+                $table->unique(['user_id', 'chirp_id']);
+            });
+        }
     }
 
     public function down(): void
