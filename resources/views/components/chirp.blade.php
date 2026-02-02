@@ -52,5 +52,93 @@
                 <p class="mt-1">{{ $chirp->message }}</p>
             </div>
         </div>
+
+        <p class="mt-1">{{ $chirp->message }}</p>
+
+        <div class="mt-2 flex justify-end items-center">
+            @auth
+                @php
+                    $isHearted = $chirp->isHeartedBy(auth()->user());
+                    $heartClass = $isHearted ? 'text-error' : 'opacity-60';
+                @endphp
+
+                <button
+                    type="button"
+                    class="btn btn-ghost btn-sm chirp-heart-button {{ $heartClass }}"
+                    data-chirp-id="{{ $chirp->id }}"
+                    aria-pressed="{{ $isHearted ? 'true' : 'false' }}"
+                >
+                    <!-- Simple heart icon; you can swap for an SVG -->
+                    <span class="heart-icon">{!! $isHearted ? '♥' : '♡' !!}</span>
+                    <span class="ml-2 heart-count">{{ $chirp->relationLoaded('heartedBy') ? $chirp->heartedBy->count() : $chirp->heartedBy()->count() }}</span>
+                </button>
+            @endauth
+        </div>
+
     </div>
 </div>
+
+@once
+    @push('scripts')
+    <script>
+    (function () {
+        // Ensure there is a meta tag with csrf token in your layout:
+        // <meta name="csrf-token" content="{{ csrf_token() }}">
+        const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+        async function toggleHeart(button) {
+            const chirpId = button.dataset.chirpId;
+            const pressed = button.getAttribute('aria-pressed') === 'true';
+            const url = `/chirps/${chirpId}/heart`;
+            const opts = {
+                headers: {
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': token,
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'same-origin'
+            };
+
+            const method = pressed ? 'DELETE' : 'POST';
+
+            const res = await fetch(url, { ...opts, method });
+
+            if (! res.ok) {
+                // optionally show an error to the user
+                console.error('Failed to toggle heart', await res.text());
+                return;
+            }
+
+            const data = await res.json();
+
+            // update the button state
+            button.setAttribute('aria-pressed', pressed ? 'false' : 'true');
+            const heartIcon = button.querySelector('.heart-icon');
+            const heartCount = button.querySelector('.heart-count');
+
+            if (data.status === 'hearted') {
+                heartIcon.textContent = '♥';
+                button.classList.add('text-error');
+                button.classList.remove('opacity-60');
+            } else {
+                heartIcon.textContent = '♡';
+                button.classList.remove('text-error');
+                button.classList.add('opacity-60');
+            }
+
+            if (heartCount && typeof data.heart_count !== 'undefined') {
+                heartCount.textContent = data.heart_count;
+            }
+        }
+
+        document.addEventListener('click', function (e) {
+            const button = e.target.closest('.chirp-heart-button');
+            if (! button) return;
+            e.preventDefault();
+            toggleHeart(button);
+        });
+    })();
+    </script>
+    @endpush
+@endonce

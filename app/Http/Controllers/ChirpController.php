@@ -15,7 +15,7 @@ class ChirpController extends Controller
      */
     public function index()
     {
-        $chirps = Chirp::with('user')
+        $chirps = Chirp::with(['user', 'heartedBy'])
         ->latest()
         ->take(50)
         ->get();
@@ -53,15 +53,28 @@ class ChirpController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show(Request $request)
     {
-        $user = auth()->user()->load(['chirps' => function ($q) {
-            $q->latest();
-        }]);
+        $user = auth()->user();
+
+        // eager load the user's chirps and heartedChirps
+        $user->load(['chirps' => function ($q) { $q->latest(); }]);
+
+        // Get all chirps this user has hearted
+        $hearted = $user->heartedChirps()->with('user')->latest()->get();
+
+        $filter = $request->query('filter', 'all');
+
+        if ($filter === 'yours') {
+            // only those hearted chirps that belong to the user
+            $hearted = $hearted->filter(fn($c) => $c->user_id === $user->id)->values();
+        }
 
         return view('auth.user', [
             'userProfile' => $user,
             'chirps' => $user->chirps,
+            'heartedChirps' => $hearted,
+            'heartFilter' => $filter,
         ]);
     }
 

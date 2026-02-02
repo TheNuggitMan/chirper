@@ -24,4 +24,21 @@
                 </div>
             @endforelse
         </div>
+
+        <div class="max-w-2xl mx-auto mt-8">
+            <h2 class="text-2xl font-semibold">Hearted Chirps</h2>
+
+            <div class="mt-4">
+                <a href="{{ route('user', ['filter' => 'all']) }}" class="btn btn-sm {{ $heartFilter === 'all' ? 'btn-primary' : 'btn-ghost' }}">All</a>
+                <a href="{{ route('user', ['filter' => 'yours']) }}" class="btn btn-sm {{ $heartFilter === 'yours' ? 'btn-primary' : 'btn-ghost' }}">Yours</a>
+            </div>
+
+            <div class="mt-4">
+                @forelse ($heartedChirps as $chirp)
+                    <x-chirp :chirp="$chirp" />
+                @empty
+                    <p class="opacity-70 mt-2">No hearted chirps to show.</p>
+                @endforelse
+            </div>
+        </div>
 </x-layout>

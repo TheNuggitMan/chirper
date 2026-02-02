@@ -51,4 +51,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Chirp::class);
     }
+
+    /**
+     * The chirps this user has hearted (many-to-many).
+    */
+    public function heartedChirps()
+    {
+        return $this->belongsToMany(\App\Models\Chirp::class, 'chirp_user')
+                    ->withTimestamps();
+    }
 }

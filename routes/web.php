@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\Register;
 use App\Http\Controllers\Auth\Logout;
 use App\Http\Controllers\Auth\Login;
 use App\Http\Controllers\ChirpController;
+use App\Http\Controllers\ChirpHeartController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ChirpController::class, 'index']);
@@ -13,6 +14,9 @@ Route::middleware('auth')->group(function() {
 	Route::put('/chirps/{chirp}', [ChirpController::class, 'update']);
 	Route::post('/chirps', [ChirpController::class, 'store']);
 	Route::delete('/chirps/{chirp}', [ChirpController::class, 'destroy']);
+	// Heart / unheart chirps
+	Route::post('/chirps/{chirp}/heart', [ChirpHeartController::class, 'store']);
+	Route::delete('/chirps/{chirp}/heart', [ChirpHeartController::class, 'destroy']);
 });
 
 //REGISTER ROUTES
