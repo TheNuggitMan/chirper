@@ -50,6 +50,7 @@
             <p>© 2025 Chirper - Built with Laravel and ❤️</p>
         </div>
     </footer>
+@stack('scripts')
 </body>
 
 </html>
